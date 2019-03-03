@@ -85,7 +85,7 @@ class train_autoencoder:
 
 		print("launching the graph...")
 
-		f = open("/root/TensorBoard/tr_%d_nn_%d_lr_%s/f%d.txt"
+		text_file = open("/root/TensorBoard/tr_%d_nn_%d_lr_%s/f%d.txt"
 			% (amt_tr, nn, str(learning_rate)[2:], file_num), "w")
 
 		# Launch the graph
@@ -140,18 +140,18 @@ class train_autoencoder:
 				if epoch % display_step == 0:
 					# print epoch # and cost to 9 decimal places
 					prst = ("Epoch %04d, training loss: " % (epoch + 1)) + "{:.9f}".format(train_loss)
-					f.write(prst)
-					f.write("\n")
+					text_file.write(prst)
+					text_file.write("\n")
 
 				# print (average) validation loss
 				if epoch % display_step == 0:
 					vl = valid_loss/(num_validation_batches*1.0)
 					prst = "validation loss: " + str(vl)
-					f.write(prst)
-					f.write("\n")
-					f.write(self.get_time())
-					f.write("\n")
-					f.write("\n")
+					text_file.write(prst)
+					text_file.write("\n")
+					text_file.write(self.get_time())
+					text_file.write("\n")
+					text_file.write("\n")
 				
 				'''
 				if vl < validation_tracker[0]:
@@ -180,9 +180,9 @@ class train_autoencoder:
 						
 				test_loss += cost.eval(feed_dict={imgs: batch})
 			prst = "test loss:" + str(test_loss/(num_testing_batches*1.0))
-			f.write(prst)
-			f.write("\n")
-		f.close()
+			text_file.write(prst)
+			text_file.write("\n")
+		text_file.close()
 
 	def conv_layer(self, inputs, info, num):
 		filters, kernel_size = info
